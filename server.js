@@ -6,7 +6,8 @@ require("dotenv").config();
 const app = express();
 
 const authRoutes = require("./routes/AuthRoutes");
-
+const { protect } = require("./middlewares/authMiddleware");
+const { authorizeRoles } = require("./middlewares/roleMiddleware");
 
 // Middleware
 app.use(cors());
@@ -26,6 +27,24 @@ mongoose.connect(process.env.MONGO_URI)
 app.get("/", (req, res) => {
     res.status(200).json({ success: 'CRM API is running...' })
 });
+
+// TEST PROTECTED ROUTE
+app.get("/api/test-protected", protect, (req, res) => {
+    res.json({
+        message: "You are authorized",
+        user: req.user
+    });
+});
+
+
+app.get(
+    "/api/admin-only",
+    protect,
+    authorizeRoles("admin"),
+    (req, res) => {
+        res.json({ message: "Welcome Admin" });
+    }
+);
 
 // Other Routes
 app.use("/api/auth", authRoutes);
