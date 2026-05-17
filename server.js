@@ -11,6 +11,7 @@ const { authorizeRoles } = require("./middlewares/roleMiddleware");
 const leadRoutes = require("./routes/LeadRoutes");
 const leadNoteRoutes = require("./routes/LeadNoteRoutes");
 const leadFollowUpRoutes = require("./routes/LeadFollowUpRoutes");
+const dealRoutes = require("./routes/DealRoutes");
 
 // Middleware
 app.use(cors());
@@ -56,6 +57,9 @@ app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 app.use("/api/lead-notes", leadNoteRoutes);
 app.use("/api/lead-followups", leadFollowUpRoutes);
+
+// Deal Route
+app.use("/api/deals", dealRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
