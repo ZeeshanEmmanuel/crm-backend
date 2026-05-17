@@ -8,6 +8,7 @@ const app = express();
 const authRoutes = require("./routes/AuthRoutes");
 const { protect } = require("./middlewares/authMiddleware");
 const { authorizeRoles } = require("./middlewares/roleMiddleware");
+const leadRoutes = require("./routes/LeadRoutes");
 
 // Middleware
 app.use(cors());
@@ -46,8 +47,11 @@ app.get(
     }
 );
 
-// Other Routes
+// Other Route
 app.use("/api/auth", authRoutes);
+
+// Leads Route
+app.use("/api/leads", leadRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
