@@ -12,6 +12,7 @@ const leadRoutes = require("./routes/LeadRoutes");
 const leadNoteRoutes = require("./routes/LeadNoteRoutes");
 const leadFollowUpRoutes = require("./routes/LeadFollowUpRoutes");
 const dealRoutes = require("./routes/DealRoutes");
+const projectRoutes = require("./routes/ProjectRoutes");
 
 // Middleware
 app.use(cors());
@@ -33,22 +34,17 @@ app.get("/", (req, res) => {
 });
 
 // TEST PROTECTED ROUTE
-app.get("/api/test-protected", protect, (req, res) => {
-    res.json({
-        message: "You are authorized",
-        user: req.user
-    });
-});
+// app.get("/api/test-protected", protect, (req, res) => {
+//     res.json({
+//         message: "You are authorized",
+//         user: req.user
+//     });
+// });
 
-
-app.get(
-    "/api/admin-only",
-    protect,
-    authorizeRoles("admin"),
-    (req, res) => {
-        res.json({ message: "Welcome Admin" });
-    }
-);
+// app.get("/api/admin-only", protect, authorizeRoles("admin"),(req, res) => {
+//         res.json({ message: "Welcome Admin" });
+//     }
+// );
 
 // Other Route
 app.use("/api/auth", authRoutes);
@@ -60,6 +56,9 @@ app.use("/api/lead-followups", leadFollowUpRoutes);
 
 // Deal Route
 app.use("/api/deals", dealRoutes);
+
+// Project Route
+app.use("/api/projects", projectRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
