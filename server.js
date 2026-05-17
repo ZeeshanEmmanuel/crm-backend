@@ -13,11 +13,11 @@ const leadNoteRoutes = require("./routes/LeadNoteRoutes");
 const leadFollowUpRoutes = require("./routes/LeadFollowUpRoutes");
 const dealRoutes = require("./routes/DealRoutes");
 const projectRoutes = require("./routes/ProjectRoutes");
+const taskRoutes = require("./routes/TaskRoutes");
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
@@ -59,6 +59,11 @@ app.use("/api/deals", dealRoutes);
 
 // Project Route
 app.use("/api/projects", projectRoutes);
+
+// Task Route
+app.use("/api/tasks", taskRoutes);
+
+
 
 // Start Server
 const PORT = process.env.PORT || 5000;
